@@ -10,15 +10,15 @@ var totals = newSeq[int]()
 
 while not endOfFile(f):
     line = f.readLine()
-    
+
     if line == "":
         totals.add(currentTotal)
         currentTotal = 0
         continue
-    
+
     var amount: int
     discard parseInt(line, amount)
-    
+
     currentTotal = currentTotal + amount
 
 totals.add(currentTotal)

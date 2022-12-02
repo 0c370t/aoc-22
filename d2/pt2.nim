@@ -6,33 +6,31 @@ let f = open("./input.txt")
 type Move = enum
     THEM_ROCK = "A", THEM_PAPER = "B", THEM_SCISSORS = "C"
 type Reply = enum
-    ME_ROCK   = "X", ME_PAPER   = "Y", ME_SCISSORS   = "Z"
-
+    ME_ROCK = "X", ME_PAPER = "Y", ME_SCISSORS = "Z"
 type IntendedOutcome = enum
-    LOSE   = "X", DRAW   = "Y", WIN   = "Z"
+    LOSE = "X", DRAW = "Y", WIN = "Z"
 
 var lookup = [
-    [2,0,1],
-    [0,1,2],
-    [1,2,0],
+    [2, 0, 1],
+    [0, 1, 2],
+    [1, 2, 0],
 ]
-
 
 var line: string
 var myTotalScore = 0
 echo "|----------------|"
 echo "| Rounds         |"
-while not endOfFile(f):
 
+while not endOfFile(f):
     line = f.readLine()
     if line == "": continue
-    
+
     echo "|----------------|"
     let split = line.split(" ")
     let theirPlay = parseEnum[Move](split[0])
     let theirValue = ord(theirPlay)
-    
-    
+
+
     let outcome = parseEnum[IntendedOutcome](split[1])
     let myValue = lookup[ord(outcome)][theirValue]
     let myPlay = Reply(myValue)
@@ -57,5 +55,5 @@ while not endOfFile(f):
     myTotalScore = myTotalScore + myScore
 
 echo "|----------------|"
-echo "| Score: " , align(myTotalScore.intToStr(), 7), " |"
+echo "| Score: ", align(myTotalScore.intToStr(), 7), " |"
 echo "|----------------|"
