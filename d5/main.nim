@@ -5,13 +5,14 @@ import std/sequtils
 import std/strutils
 import std/strformat
 
-var f = open("./test.txt")
+var f = open("./input.txt")
 
 var cargo = newSeqWith[Deque[char]](9, newSeq[char]().toDeque())
 
 const pt2 = true
 
 proc printCrates(allCrates: seq[Deque[char]]): void=
+    return
     let maxIdx = max(cargo.mapIt(it.len()))
     for i in countdown(maxIdx - 1, 0):
         var line = ""
@@ -48,7 +49,7 @@ var regx = re"move ([\d]+) from ([\d]+) to ([\d]+)"
 
 const before = "BEFORE"
 const after = "AFTER"
-echo "\n|=------------------------------------=|"
+# echo "\n|=------------------------------------=|"
 # Perform Operations
 
 while not endOfFile(f):
@@ -56,11 +57,11 @@ while not endOfFile(f):
     var matches: array[3, string]
     discard match(line, regx, matches)
     let moves = matches.map(parseInt)
-    echo fmt"|= {alignLeft(line, 33)} -=|"
+    # echo fmt"|= {alignLeft(line, 33)} -=|"
     var source = cargo[moves[1] - 1]
     var dest = cargo[moves[2] - 1]
 
-    echo fmt"|= {alignLeft(before, 33)} -=|"
+    # echo fmt"|= {alignLeft(before, 33)} -=|"
     printCrates(cargo)
 
 
@@ -81,7 +82,7 @@ while not endOfFile(f):
     cargo[moves[1] - 1] = source
     cargo[moves[2] - 1] = dest
  
-    echo fmt"|= {alignLeft(after, 33)} -=|"
+    # echo fmt"|= {alignLeft(after, 33)} -=|"
     printCrates(cargo)
 
 printCrates(cargo)
